@@ -17,17 +17,19 @@ services:
       # - traefik.http.routers.event-handler.entrypoints=websecure
       # - traefik.http.routers.event-handler.tls.certresolver=letsencrypt
     stop_grace_period: 120s
-    # Healthcheck disabled temporarily - if app crashes (e.g. missing AUTH_SECRET), check Logs tab
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:80/api/ping"]
-    #   interval: 15s
-    #   timeout: 5s
-    #   retries: 5
-    #   start_period: 120s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/api/ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
     restart: unless-stopped
 
+  # Runner: disabled by default (needs valid GH_TOKEN). Enable with: docker compose --profile runner up
   runner:
     image: myoung34/github-runner:latest
+    profiles:
+      - runner
     environment:
       REPO_URL: https://github.com/${GH_OWNER}/${GH_REPO}
       ACCESS_TOKEN: ${GH_TOKEN}

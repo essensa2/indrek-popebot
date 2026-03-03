@@ -19,13 +19,13 @@ In Coolify, open **Pope Bot** → **Configuration** → **Environment Variables*
 | `AUTH_SECRET` | **Yes** | Session encryption. Generate: `openssl rand -base64 32` |
 | `APP_URL` | **Yes** | Your app URL, e.g. `http://n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io` |
 | `APP_HOSTNAME` | **Yes** | Same hostname, e.g. `n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io` |
-| `GH_TOKEN` | For jobs | GitHub Personal Access Token (repo + workflow scopes) |
-| `GH_OWNER` | For jobs | Your GitHub username (e.g. `essensa2`) |
-| `GH_REPO` | For jobs | Repo name (e.g. `indrek-popebot`) |
+| `GH_TOKEN` | For runner | GitHub PAT (repo + workflow). Runner is disabled by default until you add this. |
+| `GH_OWNER` | For runner | Your GitHub username (e.g. `essensa2`) |
+| `GH_REPO` | For runner | Repo name (e.g. `indrek-popebot`) |
 | `GH_WEBHOOK_SECRET` | For jobs | `openssl rand -hex 32` |
 | `ANTHROPIC_API_KEY` | For chat | Anthropic API key for Claude |
 
-**If the app is restarting:** Open the **Logs** tab in Coolify to see the exact error. Missing `AUTH_SECRET` causes immediate crash.
+**Runner:** The GitHub Actions runner is disabled by default (it was spamming "Invalid token"). Add `GH_TOKEN` in Coolify, then enable it in compose if needed.
 
 ---
 
