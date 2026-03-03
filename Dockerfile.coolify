@@ -14,8 +14,7 @@ WORKDIR /app
 
 # Install deps first (better layer caching)
 COPY package.json package-lock.json* ./
-RUN npm install --omit=dev && \
-    npm install --no-save thepopebot@$(node -p "require('./package.json').version")
+RUN npm ci --omit=dev
 
 # Copy app source (excluding node_modules, .next via .dockerignore)
 COPY . .
