@@ -11,11 +11,11 @@ services:
 
   # Traefik removed for Coolify - Coolify's proxy handles routing. Assign domain in Coolify UI.
   event-handler:
-    container_name: thepopebot-event-handler
+    # No container_name - Coolify assigns unique names; fixed names cause conflicts
     image: ${EVENT_HANDLER_IMAGE_URL:-stephengpope/thepopebot:event-handler-${THEPOPEBOT_VERSION:-latest}}
     volumes:
       - .:/app
-      - /app/node_modules
+      # Do NOT mount /app/node_modules - it hides node_modules from the build-step and crashes the app
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.enable=true
@@ -29,10 +29,10 @@ services:
     stop_grace_period: 120s
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/api/ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
     restart: unless-stopped
 
   runner:
