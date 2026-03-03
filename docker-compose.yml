@@ -1,22 +1,12 @@
 services:
-  # Coolify: runs before main stack to build .next/ (helper image has no Node.js)
-  build-step:
-    image: node:20-alpine
-    volumes:
-      - .:/app
-    working_dir: /app
-    command: sh -c "npm install && npm run build"
-    profiles:
-      - build
-
-  # Traefik removed for Coolify - Coolify's proxy handles routing. Assign domain in Coolify UI.
+  # Self-contained build: Dockerfile.coolify builds .next/ inside image (no volume/platform mismatch)
   event-handler:
-    # No container_name - Coolify assigns unique names; fixed names cause conflicts
-    image: ${EVENT_HANDLER_IMAGE_URL:-stephengpope/thepopebot:event-handler-${THEPOPEBOT_VERSION:-latest}}
+    build:
+      context: .
+      dockerfile: Dockerfile.coolify
     volumes:
-      - .:/app
-      # Do NOT mount /app/node_modules - it hides node_modules from the build-step and crashes the app
       - /var/run/docker.sock:/var/run/docker.sock
+      - popebot-data:/app/data
     labels:
       - traefik.enable=true
       # Set APP_HOSTNAME in .env to the domain from APP_URL (e.g., mybot.example.com)
@@ -46,4 +36,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - .:/project:ro
     restart: unless-stopped
+
+volumes:
+  popebot-data:
 
