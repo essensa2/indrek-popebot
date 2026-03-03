@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.coolify
+    ports:
+      - "30080:80"  # Fallback: http://YOUR_SERVER_IP:30080 if proxy 404s
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - popebot-data:/app/data

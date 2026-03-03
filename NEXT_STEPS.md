@@ -2,11 +2,12 @@
 
 Pope Bot is deployed to Coolify in **Indrek > production**.
 
-## Live URL (after app is running)
+## Live URL
 
-**http://n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io**
+**Via proxy:** http://n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io  
+**Direct port (if proxy 404s):** http://62.72.33.207:30080
 
-To get a link, add a domain in Coolify: **Configuration → General → Domains for event-handler** (e.g. `n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io` or your custom domain).
+**If you get 404:** Add domain in Coolify UI: **Configuration → General → Domains for event-handler** → enter `n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io` → **Save** → Redeploy. (API domain updates may not reload the proxy.)
 
 ---
 
