@@ -25,21 +25,6 @@ services:
       start_period: 60s
     restart: unless-stopped
 
-  # Runner: disabled by default (needs valid GH_TOKEN). Enable with: docker compose --profile runner up
-  runner:
-    image: myoung34/github-runner:latest
-    profiles:
-      - runner
-    environment:
-      REPO_URL: https://github.com/${GH_OWNER}/${GH_REPO}
-      ACCESS_TOKEN: ${GH_TOKEN}
-      RUNNER_SCOPE: repo
-      LABELS: self-hosted
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - .:/project:ro
-    restart: unless-stopped
-
 volumes:
   popebot-data:
 
