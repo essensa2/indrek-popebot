@@ -17,12 +17,13 @@ services:
       # - traefik.http.routers.event-handler.entrypoints=websecure
       # - traefik.http.routers.event-handler.tls.certresolver=letsencrypt
     stop_grace_period: 120s
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/api/ping"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
+    # Healthcheck disabled temporarily - if app crashes (e.g. missing AUTH_SECRET), check Logs tab
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:80/api/ping"]
+    #   interval: 15s
+    #   timeout: 5s
+    #   retries: 5
+    #   start_period: 120s
     restart: unless-stopped
 
   runner:

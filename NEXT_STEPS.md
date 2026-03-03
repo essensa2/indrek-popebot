@@ -10,15 +10,22 @@ To get a link, add a domain in Coolify: **Configuration → General → Domains 
 
 ---
 
-## 1. Add secrets in Coolify
+## 1. Add secrets in Coolify (REQUIRED – app won't start without these)
 
-In Coolify, open **Pope Bot** → **Environment Variables** and add:
+In Coolify, open **Pope Bot** → **Configuration** → **Environment Variables** and add:
 
-| Variable | Description |
-|----------|-------------|
-| `GH_TOKEN` | GitHub Personal Access Token (repo + workflow scopes) |
-| `GH_WEBHOOK_SECRET` | Random secret for webhook validation (`openssl rand -hex 32`) |
-| `ANTHROPIC_API_KEY` | Anthropic API key for Claude chat |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `AUTH_SECRET` | **Yes** | Session encryption. Generate: `openssl rand -base64 32` |
+| `APP_URL` | **Yes** | Your app URL, e.g. `http://n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io` |
+| `APP_HOSTNAME` | **Yes** | Same hostname, e.g. `n400c8ww00g8gosksg444wwc.62.72.33.207.sslip.io` |
+| `GH_TOKEN` | For jobs | GitHub Personal Access Token (repo + workflow scopes) |
+| `GH_OWNER` | For jobs | Your GitHub username (e.g. `essensa2`) |
+| `GH_REPO` | For jobs | Repo name (e.g. `indrek-popebot`) |
+| `GH_WEBHOOK_SECRET` | For jobs | `openssl rand -hex 32` |
+| `ANTHROPIC_API_KEY` | For chat | Anthropic API key for Claude |
+
+**If the app is restarting:** Open the **Logs** tab in Coolify to see the exact error. Missing `AUTH_SECRET` causes immediate crash.
 
 ---
 
