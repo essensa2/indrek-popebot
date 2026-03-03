@@ -19,6 +19,9 @@ RUN npm ci --omit=dev
 # Copy app source (excluding node_modules, .next via .dockerignore)
 COPY . .
 
+# Patch thepopebot: use GH_BRANCH env instead of hardcoded 'main' (fixes 404 when repo uses master)
+RUN node docker/patches/apply-create-job-patch.js
+
 # Build Next.js (creates .next/)
 RUN npm run build
 
