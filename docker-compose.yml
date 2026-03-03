@@ -1,4 +1,14 @@
 services:
+  # Coolify: runs before main stack to build .next/ (helper image has no Node.js)
+  build-step:
+    image: node:20-alpine
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: sh -c "npm install && npm run build"
+    profiles:
+      - build
+
   traefik:
     image: traefik:v3
     command:
