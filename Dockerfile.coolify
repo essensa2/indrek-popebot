@@ -23,4 +23,5 @@ COPY . .
 RUN npm run build
 
 EXPOSE 80
-CMD ["pm2-runtime", "/app/docker/event-handler/ecosystem.config.cjs"]
+RUN sed -i 's/\r$//' /app/docker/event-handler/start.sh && chmod +x /app/docker/event-handler/start.sh
+CMD ["/app/docker/event-handler/start.sh"]
