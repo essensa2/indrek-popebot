@@ -21,6 +21,8 @@ COPY . .
 
 # Patch thepopebot: use GH_BRANCH env instead of hardcoded 'main' (fixes 404 when repo uses master)
 RUN node docker/patches/apply-create-job-patch.js
+# Patch thepopebot: support GitHub native webhooks (X-Hub-Signature-256) for Issues
+RUN node docker/patches/apply-github-webhook-patch.js
 
 # Build Next.js (creates .next/)
 RUN npm run build

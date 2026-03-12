@@ -21,7 +21,7 @@
     "actions": [
       { "type": "agent", "job": "A GitHub event occurred. Review the payload and summarize what happened:\n{{body}}" }
     ],
-    "enabled": false
+    "enabled": true
   },
   {
     "name": "react-to-webhook",
